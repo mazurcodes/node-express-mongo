@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+  h1= title
+  form(method="post")
+    p 
+      label Tytuł 
+      input(type='text' name='Tytuł')
+    p
+      label Treść 
+      textarea(name="Treść artykułu" cols=50 rows=10)
+    p
+      input(type='submit' value='Wyślij')
