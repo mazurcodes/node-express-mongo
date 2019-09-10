@@ -3,3 +3,14 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+
+  form(method='get')
+    input(type='text' name='search' value=search)
+    input(type='submit' value='Wyszukaj')
+
+  if data.length !== 0
+    each article, index in data
+      article
+        h3 #{index + 1}. #{article.title}
+        p=article.body
+        p(style="font-size: 10px") Dodano: #{article.date.toLocaleDateString()}, #{article.date.toLocaleTimeString()}

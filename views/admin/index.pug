@@ -2,4 +2,23 @@ extends ../layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p 
+    a(href='/admin/news/add') Dodaj news :)
+
+  h2 Lista artykułów:
+  if data.length !== 0
+    table
+      tr
+        th id
+        th tytuł
+        th data
+        th akcja
+      each article, index in data
+        tr
+          td #{index}.
+          td #{article.title}
+          td #{article.date.toLocaleString()}
+          td 
+            a(href=`admin/news/delete/${article._id}`) Usuń
+  else
+    p Pusto :)
