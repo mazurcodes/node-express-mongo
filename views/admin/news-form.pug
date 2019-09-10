@@ -2,12 +2,20 @@ extends ../layout
 
 block content
   h1= title
+
+  if errors !== undefined
+    if errors.errors !== undefined
+      each message in errors.errors
+        p=message
+
   form(method="post")
     p 
-      label Tytuł 
-      input(type='text' name='Tytuł')
+      label Tytuł: 
+      input(type='text' name='title' value=body.title)
     p
-      label Treść 
-      textarea(name="Treść artykułu" cols=50 rows=10)
+      label Treść: 
+      textarea(name="body" cols=50 rows=10 value=body.body)
     p
       input(type='submit' value='Wyślij')
+
+    p=status == true ? 'Pomyślnie wysłano' : ''

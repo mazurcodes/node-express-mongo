@@ -12,24 +12,24 @@ router.all("*", (req, res, next) => {
 
 /* GET home page. */
 router.get("/", (req, res) => {
-  // const news = new News({
-  //   title: 'To jest nowy artykuł',
-  //   body: 'To jest body nowego artykułu'
-  // });
-  // news.save( (err) => {
-  //   console.log(err);
-  // });
-
   res.render("admin/index", { title: "Admin" });
 });
 
 router.get("/news/add", (req, res) => {
-  res.render("admin/news-form", { title: "Add news" });
+  res.render("admin/news-form", { title: "Add news", status: false, body: {} });
 });
 
 router.post("/news/add", (req, res) => {
-  const {title, body} = req.body;
-  console.log(title, body);
+  const body = req.body;
+  const news = new News(body);
+  const errors = news.validateSync();
+
+  news.save( (err) => {
+    if (err) {
+      res.render("admin/news-form", { title: "Add news", status: true, errors, body });
+    }
+    res.redirect('/admin');
+  });
 })
 
 module.exports = router;
