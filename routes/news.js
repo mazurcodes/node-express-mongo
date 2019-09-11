@@ -4,7 +4,6 @@ const router = express.Router();
 
 /* GET home page. */
 router.get("/", (req, res) => {
-
   const search = req.query.search ? req.query.search.trim() : '';  // prevents searching with spaces
   const re = new RegExp(search, 'i');
   const findNews = News
