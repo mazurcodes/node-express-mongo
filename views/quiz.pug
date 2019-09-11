@@ -7,7 +7,13 @@ block content
     ul
       each item in data
         li
-          label=item.title
-          input(type="radio" name='quiz' value=item._id)
-    input(type='submit' value='Zagłosuj')
-    p Aby zobaczyć wyniki oddaj głos
+          if show
+            label=item.title
+            input(type="radio" name='quiz' value=item._id)
+          else 
+            p #{item.title} - liczba głosów: #{item.vote} - głosów ogółem: #{Math.round(item.vote/votesTotal * 100)}%
+    if show
+      input(type='submit' value='Zagłosuj')
+      p Aby zobaczyć wyniki oddaj głos
+    else 
+      h3(style="color: red") Dokonałeś już głosowania w ankiecie. Dziękujemy :)
