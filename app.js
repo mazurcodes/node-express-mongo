@@ -11,16 +11,17 @@ const config = require("./config");
 mongoose.connect(config.db, { useNewUrlParser: true });
 
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function() {
   console.log("We're connected to DB");
-})
+});
 
 //  Routing
 const indexRouter = require("./routes/index");
 const newsRouter = require("./routes/news");
 const quizRouter = require("./routes/quiz");
 const adminRouter = require("./routes/admin");
+const apiRouter = require("./routes/api");
 
 const app = express();
 
@@ -54,6 +55,7 @@ app.use("/", indexRouter);
 app.use("/news", newsRouter);
 app.use("/quiz", quizRouter);
 app.use("/admin", adminRouter);
+app.use("/api", apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
