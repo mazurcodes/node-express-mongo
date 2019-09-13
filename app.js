@@ -5,10 +5,10 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const express = require("express");
-const config = require("./config");
+require("dotenv").config();
 
 //  connect databse
-mongoose.connect(config.db, { useNewUrlParser: true });
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true });
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -29,6 +29,9 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
+// Disable X-Powered-By: Express
+app.disable('x-powered-by')
+
 //  middleware
 app.use(logger("dev"));
 app.use(express.json());
@@ -40,8 +43,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cookieSession({
     name: "session",
-    keys: config.keySession,
-    maxAge: config.maxAgeSession
+    keys: process.env.SESSION_KEY,
+    maxAge: process.env.SESSION_MAX_AGE
   })
 );
 
