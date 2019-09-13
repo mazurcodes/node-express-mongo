@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cookieSession({
     name: "session",
-    keys: process.env.SESSION_KEY,
+    keys: Array(process.env.SESSION_KEY),
     maxAge: process.env.SESSION_MAX_AGE
   })
 );

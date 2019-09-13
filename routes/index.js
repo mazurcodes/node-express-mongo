@@ -16,7 +16,10 @@ router.post('/login', (req, res)=> {
   console.log(req.body);
   const body = req.body;
   if (body.login === login && body.password === password) {
+
     req.session.admin = 1;
+    console.log(req.body);
+    console.log(process.env.SESSION_KEY);
     res.redirect('/admin')
   } else {
     res.redirect('/login')
